@@ -20,7 +20,14 @@ import com.android.launcher3.Launcher;
 
 public class SyberiaLauncher extends Launcher {
 
+    private final SyberiaLauncherCallbacks mCallbacks;
+
     public SyberiaLauncher() {
-        setLauncherCallbacks(new SyberiaLauncherCallbacks(this));
+        mCallbacks = new SyberiaLauncherCallbacks(this);
+        setLauncherCallbacks(mCallbacks);
+    }
+
+    public SyberiaLauncherCallbacks getCallbacks() {
+        return mCallbacks;
     }
 }

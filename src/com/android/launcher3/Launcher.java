@@ -198,6 +198,8 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import com.android.launcher3.syberia.SyberiaUtils;
+
 /**
  * Default launcher application.
  */
@@ -1078,7 +1080,7 @@ public class Launcher extends StatefulActivity<LauncherState> implements Launche
 
     public void startActivitySafelyAuth(View v, Intent intent, ItemInfo item,
             String sourceContainer) {
-        Utilities.showLockScreen(this, getString(R.string.trust_apps_manager_name_dialog), () -> {
+        SyberiaUtils.showLockScreen(this, getString(R.string.trust_apps_manager_name_dialog), () -> {
             startActivitySafely(v, intent, item, sourceContainer);
         });
     }

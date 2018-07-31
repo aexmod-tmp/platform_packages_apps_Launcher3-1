@@ -48,6 +48,8 @@ import com.android.launcher3.R;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.config.FeatureFlags;
 import com.android.launcher3.trust.TrustAppsActivity;
+import com.android.launcher3.syberia.SyberiaLauncherCallbacks;
+import com.android.launcher3.syberia.SyberiaUtils;
 import com.android.launcher3.uioverrides.plugins.PluginManagerWrapper;
 import com.android.launcher3.util.SecureSettingsObserver;
 
@@ -71,6 +73,7 @@ public class SettingsActivity extends FragmentActivity
     public static final String SAVE_HIGHLIGHTED_KEY = "android:preference_highlighted";
 
     public static boolean restartNeeded = false;
+
     public static final String KEY_MINUS_ONE = "pref_enable_minus_one";
     public static final String KEY_TRUST_APPS = "pref_trust_apps";
 
@@ -225,11 +228,12 @@ public class SettingsActivity extends FragmentActivity
                     return FeatureFlags.showFlagTogglerUi(getContext()) ||
                             PluginManagerWrapper.hasPlugins(getContext());
                 case KEY_MINUS_ONE:
-                    return LauncherAppState.getInstanceNoCreate().isSearchAppAvailable();
+                    return SyberiaUtils.hasPackageInstalled(getActivity(),
+                            SyberiaLauncherCallbacks.SEARCH_PACKAGE);
 
                 case KEY_TRUST_APPS:
                     preference.setOnPreferenceClickListener(p -> {
-                        Utilities.showLockScreen(getActivity(),
+                        SyberiaUtils.showLockScreen(getActivity(),
                                 getString(R.string.trust_apps_manager_name), () -> {
                             Intent intent = new Intent(getActivity(), TrustAppsActivity.class);
                             startActivity(intent);
